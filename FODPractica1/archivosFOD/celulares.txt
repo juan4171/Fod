@@ -1,0 +1,18 @@
+1 10000.00 motorola
+10 5 blanco
+g30
+2 20000.00 samsung
+0 15 gris
+s20
+3 30000.00 apple
+30 30 gris
+iphone
+4 5000.00 ultimo
+5 10 rojo
+agregado
+5 10000.00 samsung
+0 10 negro
+modelo5
+6 15000.00 samsung
+0 15 negro
+modelo6

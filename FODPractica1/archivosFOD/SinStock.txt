@@ -1,0 +1,9 @@
+2 20000.00 samsung
+0 15 gris
+s20
+5 10000.00 samsung
+0 10 negro
+modelo5
+6 15000.00 samsung
+0 15 negro
+modelo6
