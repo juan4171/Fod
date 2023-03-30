@@ -1,0 +1,7 @@
+1 30.00 Iara Suarez
+2 30.00 Daiana Torres
+3 10.00 Marcos Celi
+4 10.00 Pepe Sanchez
+6 10.00 Maria Gomez
+8 30.00 Monica Martinez
+9 40.50 Andrea Goyechea
