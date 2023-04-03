@@ -1,0 +1,4 @@
+1 7 12 Maria Lopez
+2 2 12 Marcos Bolaños
+3 3 12 Felipe Rodriguez
+4 10 10 Felipe Rodriguez
