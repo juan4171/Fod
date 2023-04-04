@@ -1,0 +1,10 @@
+1 1000.00 pan
+10 10 otros
+2 2000.00 brocoli
+10 10 verdura
+3 3000.50 pescado
+10 10 carne
+4 4999.99 pollo
+10 10 carne
+5 5000.00 frutillas
+10 10 fruta
