@@ -11,8 +11,6 @@ debajo del stock mínimo.
 Nota: todos los archivos se encuentran ordenados por código de productos. En cada detalle
 puede venir 0 o N registros de un determinado producto.
 
-WARNING: nombre de archivo a crear y abrir:
-
 }
 const
     SUCURSALES = 3;
@@ -22,7 +20,8 @@ const
     DIREC = 'C:\Users\juan8\Desktop\FOD2023\Practica2\archivosFOD\ej3\';
     PRODUCTOSTXT = DIREC+'productos.txt';
     PRODUCTOSBINARIO = DIREC+'productos';
-    PRODUCTOSTXT_ACTUALIZADO= DIREC+'productos_actualizado.txt';
+    PRODUCTOSTXT_ACTUALIZADO = DIREC+'productos_actualizado.txt';
+    PRODUCTOS_STOCK_BAJO = DIREC+'productos_bajo_stock.txt';
 
 type
     producto = record
@@ -40,19 +39,9 @@ type
 
     maestro = file of producto;
     detalle = file of informe;
-    arc_detalle = array[1..SUCURSALES] of detalle;    {file of detalle; o} {file of informe;}
+    arc_detalle = array[1..SUCURSALES] of detalle;   {file of informe;}
     reg_detalle = array[1..SUCURSALES] of informe;
 
-procedure dibujarMenu();
-begin
-    writeln('----');
-    writeln('Programa productos e informes de sucursales, elija una de las siguientes opciones: ');
-    writeln('----');
-    writeln('1. Actualizar el archivo maestro "productos.txt" con los ', SUCURSALES,' archivos detalle "det(nro de sucursal).txt"');
-    writeln('2. Crear archivo .txt .');
-    writeln('0. Salir');
-    writeln('----');
-end;
 
 procedure maestroTxtABinario(var carga: text; var archivo_maestro: maestro);
 var
@@ -70,20 +59,6 @@ begin
         write(archivo_maestro, p);
     end;
     close(archivo_maestro);
-    close(carga);
-end;
-
-procedure detalleTxtABinario(var carga: text; var archivo_informe: detalle);
-var
-    i: informe;
-begin
-    reset(carga);
-    rewrite(archivo_informe);
-    while(not eof(carga))do begin
-        with i do readln(carga, cod, cant_vendida);
-        write(archivo_informe, i);
-    end;
-    close(archivo_informe);
     close(carga);
 end;
 
@@ -124,8 +99,8 @@ begin
     for i:= 1 to SUCURSALES do
     begin
         Str(i,s);
-        assign (deta[i], DIREC+'det'+s);   //abro cada archivo, les asigno un nombre correspondiente a su pos (OJO no se puede)
-        reset(deta[i]); {WARNING, cuando los cierro?}
+        assign (deta[i], DIREC+'det'+s);   {la asignacion de los detalles se podria hacer en el pprincipal. y mando el arreglo ya asignado por referencia}
+        reset(deta[i]);
         leer( deta[i], reg_det[i] );
     end;
     minimo (reg_det, min, deta);
@@ -147,7 +122,7 @@ begin
     close(mae1);
     for i:= 1 to SUCURSALES do
     begin
-        close(deta[i]); {WARNING, nunca los cierro?}
+        close(deta[i]);
     end;
 end;
 
@@ -172,25 +147,47 @@ begin
     close(arch_texto);
 end;
 
+procedure exportar_a_txt_stock_bajo(var arch_binario : maestro);
 var
-    carga_productos_txt : text;
-    carga_informes_binarios : arc_detalle;
-    mae1 : maestro;
-    opcion: integer;
+    arch_texto: text;
+    p: producto;
 begin
-    assign(carga_productos_txt, PRODUCTOSTXT);
-    assign(mae1, PRODUCTOSBINARIO);
-    repeat
-        dibujarMenu();
-        readln(opcion);
-        case opcion of
-            1: begin
-                maestroTxtABinario(carga_productos_txt, mae1);
-                actualizar_stock_maestro(mae1, carga_informes_binarios);
-                exportarATxt(mae1);
+    reset(arch_binario);
+    assign(arch_texto, PRODUCTOS_STOCK_BAJO );
+    writeln('Archivo de texto creado en: ', PRODUCTOS_STOCK_BAJO );
+    rewrite(arch_texto);
+    while(not eof(arch_binario))do begin
+        read(arch_binario, p);
+        with p do
+        begin
+            if (stock_disp < stock_minimo) then
+            begin
+                writeln( arch_texto, nom,' ', descrip,' ', stock_disp,' ', precio:0:2);
             end;
         end;
-    until opcion = 0;
+    end;
+    close(arch_binario);
+    close(arch_texto);
+end;
+
+var
+    carga_productos_txt : text;
+    carga_informes_binarios : arc_detalle;   {la asignacion de los detalles se podria hacer en el pprincipal.}
+    mae1 : maestro;
+begin
+
+    writeln('----');
+    writeln('Programa productos e informes de sucursales: ');
+    writeln('----');
+
+    assign(carga_productos_txt, PRODUCTOSTXT);
+    assign(mae1, PRODUCTOSBINARIO);
+    {la asignacion de los detalles se podria hacer en el pprincipal.}
+
+    maestroTxtABinario(carga_productos_txt, mae1);
+    actualizar_stock_maestro(mae1, carga_informes_binarios);
+    exportarATxt(mae1);
+    exportar_a_txt_stock_bajo(mae1);
 
     writeln('----');
     writeln('-Programa finalizado.-');

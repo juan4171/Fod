@@ -5,6 +5,6 @@
 3 3000.50 pescado
 10 10 carne
 4 4999.99 pollo
-10 10 carne
+15 10 carne
 5 5000.00 frutillas
-10 10 fruta
+15 10 fruta
