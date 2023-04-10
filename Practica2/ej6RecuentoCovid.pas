@@ -20,16 +20,18 @@ Realice las declaraciones necesarias, el programa principal y los procedimientos
 requiera para la actualización solicitada e informe cantidad de localidades con más de 50
 casos activos (las localidades pueden o no haber sido actualizadas).
 
+WARNING: marque con * las cosas que si tuviera directamente desde un principio los archivos binarios
+no necesitaria, pero como tengo que crear los archivos primero en txt y despues pasarlos
+a binario, las uso.
 }
 const
-    CANT_DETALLES = 3;
+    CANT_DETALLES = 3;      {3 para no usar 10}
     VALORALTO = 9999;
     {WARNING: para ejecutar este programa en otra pc cambiar estas direcciones}
     {direccion de donde se van a cargar y guardar los archivos}
     DIREC = 'C:\Users\juan8\Desktop\FOD2023\Practica2\archivosFOD\ej6\';
     MAESTRO_TXT = DIREC+'informe_ministerio.txt';
     MAESTRO_BINARIO = DIREC+'informe_ministerio';
-    DETALLE_TXT = DIREC+'informe_municipio.txt'; {este no lo uso seguro}
     DETALLE_BINARIO = DIREC+'informe_municipio';
 
 type
@@ -55,10 +57,10 @@ type
     maestro = file of ministerio;
     detalle = file of municipio;
 
-    arc_detalle = array[1..MAQUINAS] of detalle;    {archivos detalle}
-    reg_detalle = array[1..MAQUINAS] of municipio;
+    arc_detalle = array[1..CANT_DETALLES] of detalle;    {archivos detalle}
+    reg_detalle = array[1..CANT_DETALLES] of municipio;
 
-    arc_detalle_txt = array[1..MAQUINAS] of text;
+    arc_detalle_txt = array[1..CANT_DETALLES] of text;
     {archivos detalle txt que uso porque, como no tengo los detalles en binario,
     uso este arreglo para pasarlos de txt a binario}
 
@@ -71,29 +73,49 @@ begin
         dato.cod := valoralto;
 end;
 
-procedure minimo (var reg_det: reg_detalle; var min: log_maquina; var deta: arc_detalle);
+procedure minimo (var reg_det: reg_detalle; var min: municipio; var deta: arc_detalle);
 var
     i, i_del_minimo: integer;
 begin
     min:= reg_det[1];
     i_del_minimo:=1;
-    for i:= 2 to MAQUINAS do
+    for i:= 2 to CANT_DETALLES do
     begin
-        if (reg_det[i].cod < min.cod) then
+        if ( (reg_det[i].cod < min.cod) or ((reg_det[i].cod = min.cod) and (reg_det[i].cepa < min.cepa)) ) then
         begin
             min:=reg_det[i];
             i_del_minimo:=i;
         end
-        else
-        begin
-            if((reg_det[i].cod = min.cod)and(reg_det[i].fecha <= min.fecha))then
-            begin
-                min:= reg_det[i];
-                i_del_minimo:=i;
-            end;
-        end;
     end;
     leer( deta[i_del_minimo], reg_det[i_del_minimo] );
+end;
+
+procedure informar(var mae1: maestro);
+var
+    reg_actual, reg_aux: ministerio;
+    total: integer;
+    quedan_localidades: boolean;
+begin
+    writeln('Lista de localidades con mas de 50 casos activos: ');
+    quedan_localidades:=true;
+    reset(mae1);
+    while (not(eof(mae1))) do
+    begin
+        total:=0;
+        read(mae1, reg_actual);
+        reg_aux:= reg_actual;
+        while (reg_actual.cod = reg_aux.cod) and (quedan_localidades) do begin
+            total:= total+reg_actual.casos_activos;
+            if (not(eof(mae1))) then
+                read(mae1, reg_actual)
+            else
+                quedan_localidades:= false;
+        end;
+        if (total > 50) then
+            writeln('la localidad: ',reg_aux.cod,' nombre: ', reg_aux.nom_localidad,' tiene mas de 50 casos activos.');
+    end;
+    close(mae1);
+    writeln('Fin del listado.');
 end;
 
 procedure actualizar(var mae1: maestro; var deta: arc_detalle);
@@ -112,26 +134,30 @@ begin
     end;
     {calculo el reg de menor codigo de entre todos los detalles}
     minimo (reg_det, min, deta);
-    {calculo por cada usuario las horas de sesion tot por dia}
     while (min.cod <> VALORALTO) do
     begin
-        regm.cod := min.cod;
-        regm.fecha := min.fecha;    {no puedo hacer regm=min porque no son lo mismo}
-        regm.tiempo_total_de_sesiones_abiertas := 0;
-        {se procesan todos los productos de un mismo codigo y misma fecha}
-        while ((regm.cod = min.cod ) and (min.fecha = regm.fecha)) do begin
-            regm.tiempo_total_de_sesiones_abiertas := regm.tiempo_total_de_sesiones_abiertas + min.tiempo_sesion;
-            minimo (reg_det, min, deta);
-        end;
-        { se guarda en el archivo maestro cuando cambio de codigo y/o de fecha}
+        read(mae1,regm);
+        while ((regm.cod <> min.cod ) or (min.cepa <> regm.cepa)) do  {se tienen que cumplir las 2 condiciones para salir, si solo se cumple una sigo buscando}
+            read(mae1,regm);
+        {while ((regm.cod = min.cod ) and/or (min.cepa = regm.cepa)) do begin }
+        {las localidad no se repiten y no tengo cepas repetidad en una misma localidad}
+        {no va un if porque SI O SI voy a encontrar un registro maestro para el registro del detalle}
+        regm.casos_activos := min.casos_activos;
+        regm.casos_nuevos := min.casos_nuevos;
+        regm.casos_fallecidos := regm.casos_fallecidos + min.casos_fallecidos;
+        regm.casos_recuperados := regm.casos_recuperados + min.casos_recuperados;
+        minimo (reg_det, min, deta);
+        { se guarda en el archivo maestro cuando cambio de codigo y/o de cepa}
+        seek (mae1, filepos(mae1)-1);
         write(mae1, regm);
     end;
     {cierro archivos detalle y maestro}
     close(mae1);
-    for i:= 1 to MAQUINAS do
+    for i:= 1 to CANT_DETALLES do
     begin
         close(deta[i]);
     end;
+    writeln('Actualizacion finalizada.')
 end;
 
 procedure exportar_a_txt(var arch_binario : maestro; var arch_texto: text);
@@ -189,6 +215,7 @@ begin
     close(carga);
 end;
 
+
 var
     mae1 : maestro;
     mae1_txt : text;
@@ -201,7 +228,7 @@ var
     indice_str : string[2];
 begin
     writeln('----');
-    writeln('Programa Red lan y logs: ');
+    writeln('Programa ministerio de salud covid: ');
     writeln('----');
     {-------------Archivos del maestro binario y txt-------------}
     assign(mae1, MAESTRO_BINARIO);
@@ -209,20 +236,21 @@ begin
     {-------------Creacion de los detalles binarios--------------}
     {-----------------------------Y------------------------------}
     {-------------Creacion del vector de detalles----------------}
-    for i := 1 to MAQUINAS do begin
+    for i := 1 to CANT_DETALLES do begin
         Str(i,indice_str);
-        assign(vector_det_txt[i], DETALLE_BINARIO+indice_str+'.txt');
+        assign(vector_det_txt[i], DETALLE_BINARIO+indice_str+'.txt');   {*}
         assign(vector_det_binarios[i], DETALLE_BINARIO+indice_str);
-        detalle_txt_a_binario(vector_det_txt[i], vector_det_binarios[i]);
+        detalle_txt_a_binario(vector_det_txt[i], vector_det_binarios[i]);   {*}
         {creo un vector de detalles txt para poder ir pasandolos todos al vector de detalles binarios,
         el ejercicio no lo pide pero para comprobar que funciona lo hago, si ya tuviera creados los binarios no haria falta hacerlo
         voy asignandole direcciones a los archivos binarios y despues (pasando los archivos de texto a binario)
         voy creando archivos en esas direcciones}
     end;
-    detalle_txt_a_binario(mae1_txt, mae1);   {*}
+    maestro_txt_a_binario(mae1_txt, mae1);   {*}
+    informar(mae1); {informo antes y despues de actualizar, no lo pide el ej}
     actualizar(mae1, vector_det_binarios);
+    informar(mae1);
     exportar_a_txt(mae1, mae1_txt);          {*}
-
     writeln('----');
     writeln('-Programa finalizado.-');
     readln();
