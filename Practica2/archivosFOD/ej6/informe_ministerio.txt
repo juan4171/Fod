@@ -1,0 +1,10 @@
+1 1 la plata
+10 10 10 10 alpha
+1 2 la plata
+10 10 10 10 delta
+2 1 berisso 
+10 10 10 10 alpha
+3 2 ensenada
+20 20 20 20 delta 
+4 3 tolosa
+30 30 30 30 gamma
