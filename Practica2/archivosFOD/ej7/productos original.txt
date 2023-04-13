@@ -1,0 +1,5 @@
+1 1500.50 10 10 jabon
+2 2000.50 20 10 esponja
+3 3000.50 30 10 guantes
+4 4000.50 40 10 lavandina
+5 5000.50 50 10 desengrasante
