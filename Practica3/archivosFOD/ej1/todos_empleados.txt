@@ -1,0 +1,5 @@
+- Nro de emp: 1 - Nombre y ap: juan perez - edad: 69 - DNI: 12345678
+- Nro de emp: 2 - Nombre y ap: julian gomez - edad: 70 - DNI: 12345679
+- Nro de emp: 3 - Nombre y ap: luis lopez - edad: 71 - DNI: 00
+- Nro de emp: 6 - Nombre y ap: ana missio - edad: 25 - DNI: 12344444
+- Nro de emp: 5 - Nombre y ap: carla martinez - edad: 18 - DNI: 12344444
