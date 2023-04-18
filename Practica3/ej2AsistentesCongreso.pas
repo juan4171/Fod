@@ -1,4 +1,4 @@
-program ej4empleadosMenuMasOpciones;
+program ej2AsistentesCongreso;
 {ej2. Definir un programa que genere un archivo con registros de longitud fija conteniendo
 información de asistentes a un congreso a partir de la información obtenida por
 teclado. Se deberá almacenar la siguiente información: nro de asistente, apellido y

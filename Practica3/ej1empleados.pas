@@ -1,4 +1,4 @@
-program ej4empleadosMenuMasOpciones;
+program ej1empleados;
 {ej3: Realizar un programa que presente un menú con opciones para:
 a. Crear un archivo de registros no ordenados de empleados y completarlo con
 datos ingresados desde teclado. De cada empleado se registra: número de
