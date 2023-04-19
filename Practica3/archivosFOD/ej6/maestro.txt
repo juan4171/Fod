@@ -1,0 +1,8 @@
+1 10 1000 rojo
+pantalon
+2 20 2000 azul
+remera
+3 30 3000 verde
+boxer
+4 40 4000 rosa
+campera
