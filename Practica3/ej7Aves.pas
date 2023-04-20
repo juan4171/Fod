@@ -48,9 +48,9 @@ var
 begin
     reset (mae1);
     writeln('Comienza el borrado de aves del archivo:');
-    writeln('Ingrese el codigo de ave que quiera eliminar del archivo (500.000 para terminar):');
+    writeln('Ingrese el codigo de ave que quiera eliminar del archivo (50 para terminar):');
     readln(c);
-    while (c <> 500000) do
+    while (c <> 50) do {50 para no poner 500000}
     begin
         encontre:=false;
         while((not eof(mae1)) and (not encontre)) do {no asumo que si o si encuentre}
@@ -69,7 +69,7 @@ begin
         begin
             writeln('El codigo de ave ingresado no existe en el archivo, intente nuevamente.');
         end; 
-        writeln('Ingrese el codigo de ave que quiera eliminar del archivo (500.000 para terminar):');
+        writeln('Ingrese el codigo de ave que quiera eliminar del archivo (50 para terminar):');
         readln(c);
         seek (mae1, 0);
     end;
@@ -87,38 +87,25 @@ begin
     begin
         if (reg.cod < 0) then
         begin
-            if (filepos(archivo)-1 = filesize(archivo)-1) then {si soy el ultimo o si soy el unico}
+            if (filepos(archivo)-1 = filesize(archivo)-1) then {si estoy en el unico o el ultimo registro}
             begin
-                seek(archivo, filepos(archivo)-1 );
-                truncate(archivo);
+                seek(archivo, filesize(archivo)-1 );
+                truncate(archivo);    
             end
-            else
+            else 
             begin
                 pos_de_reemplazo:= filepos(archivo)-1;  {guardo la pos donde esta lo que voy a sobre escribir}
-                seek(archivo, filesize(archivo)-1 );
-                read(archivo, ultimo); {guardo el ultimo}
-
-                while ((ultimo.cod < 0) and (pos_de_reemplazo <> filepos(archivo)-1)) do begin
-                    seek(archivo, filesize(archivo)-1 );
-                    Truncate (archivo);
-                    writeln('Se borro avex y el archivo quedo con ',filesize(archivo),' posiciones');
-                    seek(archivo, filesize(archivo)-1 );
-                    read(archivo, ultimo);
-                end;
-
-                seek(archivo, filesize(archivo)-1 );
-                Truncate (archivo);    {trunco el archivo en donde se encuentra el puntero}
-                seek(archivo, pos_de_reemplazo);
-                write(archivo, ultimo);    {pongo el ultimo en el que voy a borrar}
-            end;
-            
+                seek(archivo, filesize(archivo)-1 );    {guardo el ultimo}
+                read(archivo, ultimo);                  {guardo el ultimo}
+                seek(archivo, pos_de_reemplazo);        {copio el ultimo en la pos a sobre escribir}
+                write(archivo, ultimo);                 {copio el ultimo en la pos a sobre escribir}
+                seek(archivo, filesize(archivo)-1 );    {trunco el ultimo}
+                truncate(archivo);                      {trunco el ultimo}
+                seek(archivo,pos_de_reemplazo);            {vuelo a la pos a sobre escrita por si sobre escribi algo a borrar}
+            end;            
             writeln('Se borro ave y el archivo quedo con ',filesize(archivo),' posiciones');
         end;
-        writeln('TODO BIEN', reg.cod);
-        writeln('TODO BIEN', filepos(archivo));
         leer(archivo, reg);
-        writeln('TODO BIEN', reg.cod);
-        writeln('TODO BIEN', filepos(archivo));
     end;
     close(archivo);
 end;
@@ -143,7 +130,7 @@ begin
     close(carga);
 end;
 
-procedure imprimir(reg: ave);
+procedure imprimir(reg: ave);      {* no lo pide el ej}
 begin
     with reg do
     begin
@@ -151,7 +138,7 @@ begin
     end;
 end;
 
-procedure mostrarListaCompleta(var arc_logico: maestro);
+procedure mostrarListaCompleta(var arc_logico: maestro);   {* no lo pide el ej}
 var
     reg: ave;
 begin
@@ -170,16 +157,13 @@ var
     mae1_txt : text;    {* no lo pide el ej}
 begin
     assign( mae1, MAESTRO_BINARIO); 
-
-    assign( mae1_txt, MAESTRO_TXT);     {* no lo pide el ej}
+    assign( mae1_txt, MAESTRO_TXT);         {* no lo pide el ej}
     maestro_txt_a_binario(mae1_txt, mae1);     {* no lo pide el ej}
-
-    mostrarListaCompleta(mae1);     {* no lo pide el ej}
+    mostrarListaCompleta(mae1);             {* no lo pide el ej}
 
     actualizar(mae1);
     mostrarListaCompleta(mae1);     {* no lo pide el ej}
     borrarAves(mae1); {compactar}
-
     mostrarListaCompleta(mae1);     {* no lo pide el ej}
 
     writeln('----');
