@@ -40,11 +40,10 @@ begin
         dato.cod := valoralto;
 end;
 
-procedure actualizar(var mae1: maestro);{WARNING VER SI LO PUEDO HACER CON LEER}
+procedure actualizar(var mae1: maestro);    {podria llamarse baja logica}
 var
     regm: ave;
     c: integer;
-    encontre: boolean;
 begin
     reset (mae1);
     writeln('Comienza el borrado de aves del archivo:');
@@ -52,31 +51,30 @@ begin
     readln(c);
     while (c <> 50) do {50 para no poner 500000}
     begin
-        encontre:=false;
-        while((not eof(mae1)) and (not encontre)) do {no asumo que si o si encuentre}
+        leer(mae1, regm);
+        while((regm.cod <> VALORALTO) and (regm.cod <> c)) do {no asumo que si o si encuentre}
         begin
-            read(mae1, regm);
-            if (regm.cod = c) then
-            begin
-                regm.cod:= -(regm.cod);
-                seek (mae1, filepos(mae1)-1);
-                write(mae1, regm); 
-                writeln('Ave codigo ', c ,' marcada como eliminada exitosamente.'); 
-                encontre:=true;
-            end; 
-        end;      
-        if (encontre = false) then 
+             leer(mae1, regm);
+        end;
+        if (regm.cod = c) then
+        begin
+            regm.cod:= -(regm.cod);
+            seek (mae1, filepos(mae1)-1);
+            write(mae1, regm);
+            writeln('Ave codigo ', c ,' marcada como eliminada exitosamente.');
+        end
+        else
         begin
             writeln('El codigo de ave ingresado no existe en el archivo, intente nuevamente.');
         end; 
         writeln('Ingrese el codigo de ave que quiera eliminar del archivo (50 para terminar):');
         readln(c);
-        seek (mae1, 0);
+        seek (mae1, 0);   {necesario para volver a buscar desde el principio}
     end;
     writeln('Fin de marcado de aves para borrar.');
 end;
 
-procedure borrarAves(var archivo : maestro);    {compactar}
+procedure borrarAves(var archivo : maestro);    {podria llamarse compactar o baja fisica}
 var
     pos_de_reemplazo: integer;
     reg, ultimo: ave;
