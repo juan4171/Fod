@@ -93,7 +93,7 @@ begin
     encontre:=false;
     while ((reg.codigo <> VALORALTO) and (not encontre)) do
     begin
-        if (reg.codigo = flor.codigo) and (reg.nombre = flor.nombre) then
+        if (reg.codigo = flor.codigo) and (reg.nombre = flor.nombre) then   {si encuentro la flor que busco}
         begin 
             pos_borrado:= filepos(archivo)-1;   {guardo la posicion borrada}
             seek(archivo, filepos(archivo)-1 );  {borro sobre escribiendo con lo que estaba en cabecera}      
