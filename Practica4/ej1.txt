@@ -1,0 +1,42 @@
+1. Definir la estructura de datos correspondiente a un árbol B de orden M, que
+almacenará información correspondiente a alumnos de la facultad de informática de
+la UNLP. De los mismos deberá guardarse nombre y apellido, DNI, legajo y año de
+ingreso. ¿Cuál de estos datos debería seleccionarse como clave de identificación para
+organizar los elementos en el árbol? ¿Hay más de una opción? Justifique su elección.
+
+-Respuesta (consultar a que se refieren con "definir", por si acaso pongo 2 definiciones):
+
+-Definicion de arbol B:
+Un arbol B es un arbol multicamino con una construccion especial de arboles que permite mantenerlos balanceados a bajo costo.
+
+Propiedad de Arboles Orden M:
+1- Cada nodo pued tener como max M descendientes y M-1 elementos.
+2- La raiz tiene 0 o al menos dos descendientes.
+3- Un nodo con X descendientes contiene X-1 elementos.
+4- Todos los nodos menos la raiz tienen como minimo [M/2] - 1 elementos y como maximo M - 1.
+5- Todas las hojas estan al mismo nivel.
+
+-Definicion (declaracion) EN CODIGO pascal de la estructura de un arbol B:
+const
+    M=3 {orden del arbol}
+type
+    alumno = record
+        nombre:string[10];
+        apellido:string[10];
+        DNI:string[8];
+        legajo:integer;
+        ingreso:integer; 
+    end;
+    nodo = record
+        cant_claves:integer;
+        calves:array[1..M-1] of <tipo_dato>; {aca se guardarian las direcciones de los nodos? o alumnos?}
+        hijos:array[1..M] of integer; 
+    end;
+    arbol=file of nodo;
+var
+    arbolB: arbol;
+
+-¿Cuál de estos datos debería seleccionarse como clave de identificación para
+organizar los elementos en el árbol? ¿Hay más de una opción? Justifique su elección:
+Deberia seleccionarse como clave de identificacion el legajo o DNI ya que son claves univocas.
+	

@@ -1,0 +1,68 @@
+3. Dado el siguiente algoritmo de búsqueda en un árbol B:
+
+Asuma que para la primera llamada, el parámetro NRR contiene la posición de la raíz
+del árbol. Responda detalladamente:
+a. PosicionarYLeerNodo(): Indique qué hace y la forma en que deben ser enviados
+los parámetros (valor o referencia).
+b. claveEncontrada(): Indique qué hace y la forma en que deben ser enviados los
+parámetros (valor o referencia). ¿Cómo lo implementaría?
+c. ¿Existe algún error en este código? En caso afirmativo, modifique lo que considere
+necesario. --> es un error el algoritmo entero :c.
+
+procedure buscar(NRR, clave, NRR_encontrado, pos_encontrada, resultado)
+var 
+  clave_encontrada: boolean;
+begin
+  if (nodo = null)
+    resultado := false; {clave no encontrada}
+  else
+    posicionarYLeerNodo(A, nodo, NRR);
+    claveEncontrada(A, nodo, clave, pos, clave_encontrada);
+    if (clave_encontrada) then begin
+      NRR_encontrado := NRR; { NRR actual }
+      pos_encontrada := pos; { posicion dentro del array }
+      resultado := true;
+    end
+    else
+      buscar(nodo.hijo[pos], clave, NRR_encontrado, pos_encontrada,resultado)
+end;
+
+c.
+procedure buscar(NRR, clave, NRR_encontrado, pos_encontrada, resultado, A)
+var 
+  clave_encontrada: boolean;
+  nodo: nodo_del_arbol;
+  pos: integer;
+begin
+  posicionarYLeerNodo(A, nodo, NRR);
+  if (nodo = null)
+    resultado := false; {clave no encontrada}
+  else
+    claveEncontrada(nodo, clave, pos, clave_encontrada);
+    if (clave_encontrada) then begin
+      NRR_encontrado := NRR; { NRR actual }
+      pos_encontrada := pos; { posicion dentro del array }
+      resultado := true;
+    end
+    else
+      buscar(nodo.hijo[pos], clave, NRR_encontrado, pos_encontrada, resultado, A)
+end;
+
+
+a. Se posiciona en el registro correspondiente al NRR pasado como parametro y lo retorna en la variable nodo. 
+NRR seria un índice del registro en el archivo.
+- A es por referencia, es el archivo del arbol
+- NRR es por valor, es la posicion que leo del registro
+- nodo es por referencia, es el nodo que extraigo para "analizar/comparar"
+
+b. Busca en el array de claves del nodo ingresado si esta la clave buscada;
+Si esta: clave_encontrada := true y pos contiene la posicion del array en la que se encuentra la clave.
+Si no esta: clave_encontrada := false y pos contiene la posicion del array de hijos, 
+en donde se encuentra un nodo(hijo) que probablemente tenga entre sus hijos la clave que estoy buscando.
+por ej: si mi array de hijos tiene 3 hijos(ordenados por clave de menor a mayor), 
+y la clave que estoy buscando es menor que el primero, 
+probablemente la clave que estoy buscando sea hijo del primer hijo del array.
+- pos es por referencia.
+- nodo es por valor.
+- clave es por valor.
+- clave_encontradaes por referencia.
