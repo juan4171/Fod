@@ -119,5 +119,6 @@ porque la proxima direccion/proximo registro contiene clave.
 
 --------------------------------------------------------------------------------------------------
 
+cant claves / cant registros TOTAL = DE * 100 = %DE  
 11 / (11*2) = 0.5
 DE = 0.5 * 100 = 50%
