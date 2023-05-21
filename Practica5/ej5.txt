@@ -1,0 +1,123 @@
+5. Dado el archivo dispersado a continuación, grafique los estados sucesivos para las
+siguientes operaciones: +12, +45, -70, -56.
+
+Técnica de resolución de colisiones: Saturación progresiva.
+f(x) = x MOD 11
+
+--------------------------------------------------------------------------------------------------
+archivo original:
+Direcc Clave Clave
+    0:  (44) ()
+    1:  (23) (56)
+    2:  (24) ()
+    3:  ()   ()
+    4:  (70) ()
+    5:  (60) ()
+    6:  (50) ()
+    7:  (84) ()
+    8:  ()   ()
+    9:  (42) ()
+    10: (21) (65)
+
+--------------------------------------------------------------------------------------------------
++12, +45, -70, -56.
++12
+f(12) = 12 MOD 11 = 1
+cuenta para sacar el MOD: 12/11 = 1.09 --> (1.09 - 1) * 11 = 1
+
+Direcc Clave Clave
+    0:  (44) ()
+    1:  (23) (56)
+    2:  (24) (12 clave intrusa)
+    3:  ()   ()
+    4:  (70) ()
+    5:  (60) ()
+    6:  (50) ()
+    7:  (84) ()
+    8:  ()   ()
+    9:  (42) ()
+    10: (21) (65)
+
+L/E: L1, L2, E2
+
+- leo direccion 1, Se intenta agregar la clave 12 en la direccion 1, se produce overflow, se busca la proxima
+  direccion con espacio disponible, en la direccion 2 hay una clave, pero tiene un espacio
+  disponible y se agrega la clave 12 (clave intrusa)
+
+--------------------------------------------------------------------------------------------------
++12, +45, -70, -56.
++45
+f(45) = 45 MOD 11 = 1
+cuenta para sacar el MOD: 45/11 = 4.09 --> (4.09 - 4) * 11 = 1
+
+Direcc Clave Clave
+    0:  (44) ()
+    1:  (23) (56)
+    2:  (24) (12 intrusa)
+    3:  (45 intrusa)   ()
+    4:  (70) ()
+    5:  (60) ()
+    6:  (50) ()
+    7:  (84) ()
+    8:  ()   ()
+    9:  (42) ()
+    10: (21) (65)
+
+L/E: L1, L2, L3, E3
+
+- Se intenta agregar la clave 45 en la direccion 1, se produce overflow, se busca la proxima
+  direccion con espacio disponible, la direccion 3 tiene un espacio
+  disponible y se agrega la clave 45 (clave intrusa)
+
+--------------------------------------------------------------------------------------------------
++12, +45, -70, -56.
+-70:
+f(70) = 70 MOD 11 = 4
+cuenta para sacar el MOD: 70/11 = 6.3636 --> (6.3636 - 6) * 11 = 4
+
+Direcc Clave Clave
+    0:  (44) ()
+    1:  (23) (56)
+    2:  (24) (12 intrusa)
+    3:  (45 intrusa)   ()
+    4:  () ()
+    5:  (60) ()
+    6:  (50) ()
+    7:  (84) ()
+    8:  ()   ()
+    9:  (42) ()
+    10: (21) (65)
+
+L/E: L4, E4
+
+- Se baja/elimina la clave 70 en la direccion 4, no es necesario dejar marca
+porque la proxima direccion/proximo registro esta vacia.
+
+--------------------------------------------------------------------------------------------------
++12, +45, -70, -56.
+-56:
+f(56) = 56 MOD 11 = 1
+cuenta para sacar el MOD: 56/11 = 5,0909 --> (5,0909 - 5) * 11 = 1
+
+Direcc Clave Clave
+    0:  (44) ()
+    1:  (23) (##)
+    2:  (24) (12 intrusa)
+    3:  (45 intrusa)   ()
+    4:  () ()
+    5:  (60) ()
+    6:  (50) ()
+    7:  (84) ()
+    8:  ()   ()
+    9:  (42) ()
+    10: (21) (65)
+
+L/E: L1, E1
+
+- Se baja/elimina la clave 56 en la direccion 1, se deja marca
+porque la proxima direccion/proximo registro contiene clave.
+
+--------------------------------------------------------------------------------------------------
+
+11 / (11*2) = 0.5
+DE = 0.5 * 100 = 50%

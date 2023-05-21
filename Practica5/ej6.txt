@@ -1,0 +1,119 @@
+6. Dado el archivo dispersado a continuación, grafique los estados sucesivos, indique
+lecturas y escrituras y calcule la densidad de empaquetamiento para las siguientes
+operaciones: +31, +82, -15, -52
+Técnica de resolución de colisiones: Saturación progresiva.
+
+f(x) = x MOD 10
+
+--------------------------------------------------------------------------------------------------
+archivo original:
+Direcc Clave Clave
+    0:  ()   ()
+    1:  (11) (21)
+    2:  (52) ()
+    3:  (13) (93)
+    4:  ()   ()
+    5:  (15) ()
+    6:  ()   ()
+    7:  (17) (97)
+    8:  ()   ()
+    9:  ()   ()
+
+--------------------------------------------------------------------------------------------------
++31, +82, -15, -52
++31
+f(31) = 31 MOD 10 = 1
+cuenta para sacar el MOD: 31/10 = 3.1 --> (3.1 - 3) * 10 = 1
+
+Direcc Clave Clave
+    0:  ()   ()
+    1:  (11) (21)
+    2:  (52) (31 intrusa)
+    3:  (13) (93)
+    4:  ()   ()
+    5:  (15) ()
+    6:  ()   ()
+    7:  (17) (97)
+    8:  ()   ()
+    9:  ()   ()
+
+L/E: L1, L2, E2
+
+- Se intenta agregar la clave 31 en la direccion 1, se produce overflow, se busca la proxima
+  direccion con espacio disponible, en la direccion 2 hay una clave, pero tiene un espacio/registro
+  disponible y se agrega la clave 31 (clave intrusa)
+
+--------------------------------------------------------------------------------------------------
++31, +82, -15, -52
++82
+f(82) = 82 MOD 10 = 2
+cuenta para sacar el MOD: 82/10 = 8.2 --> (8.2 - 8) * 10 = 2
+
+Direcc Clave Clave
+    0:  ()   ()
+    1:  (11) (21)
+    2:  (52) (31 intrusa)
+    3:  (13) (93)
+    4:  (82 intrusa)   ()
+    5:  (15) ()
+    6:  ()   ()
+    7:  (17) (97)
+    8:  ()   ()
+    9:  ()   ()
+
+L/E: L2, L3, L4, E4
+
+- Se intenta agregar la clave 82 en la direccion 2, se produce overflow, se busca la proxima
+  direccion con espacio disponible, en la direccion 4 hay espacio/registro
+  disponible y se agrega la clave 82 (clave intrusa)
+
+--------------------------------------------------------------------------------------------------
++31, +82, -15, -52
+-15
+f(15) = 15 MOD 10 = 5
+cuenta para sacar el MOD: 15/10 = 1.5 --> (1.5 - 1) * 10 = 5
+
+Direcc Clave Clave
+    0:  ()   ()
+    1:  (11) (21)
+    2:  (52) (31 intrusa)
+    3:  (13) (93)
+    4:  (82 intrusa)   ()
+    5:  () ()
+    6:  ()   ()
+    7:  (17) (97)
+    8:  ()   ()
+    9:  ()   ()
+
+L/E: L5, E5
+
+- Se baja/elimina la clave 15 en la direccion 5, no es necesario dejar marca
+porque la proxima direccion/proximo registro esta vacia.
+
+--------------------------------------------------------------------------------------------------
++31, +82, -15, -52
+-52
+f(52) = 52 MOD 10 = 2
+cuenta para sacar el MOD: 52/10 = 5.2 --> (5.2 - 5) * 10 = 2
+
+Direcc Clave Clave
+    0:  ()   ()
+    1:  (11) (21)
+    2:  (##) (31 intrusa)
+    3:  (13) (93)
+    4:  (82 intrusa)   ()
+    5:  () ()
+    6:  ()   ()
+    7:  (17) (97)
+    8:  ()   ()
+    9:  ()   ()
+
+L/E: L2, E2
+
+- Se baja/elimina la clave 52 en la direccion 2, se deja marca
+porque la proxima direccion/proximo registro contiene clave.
+
+--------------------------------------------------------------------------------------------------
+
+8 / (10*2) = 0.4
+DE = 0.4 * 100 = 40%
