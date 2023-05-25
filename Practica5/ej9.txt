@@ -121,7 +121,7 @@ L/E: L4, L5, L6, L7, L8, E8, E6, E4
   Se agrega la clave 48 a su direccion base (direccion 6) y se produce 
   overflow porque hay una clave intrusa en esa direccion.
   En la direccion 8 se encuentra espacio/registro disponible y se mueve 
-  la clave 60 (clave intrusa) actualizando su enlace de referencia.
+  la clave 60 (clave intrusa) actualizando cadena de enlaces.
 --------------------------------------------------------------------------------------------------
 +78, +34, +23, +48, +37, -34
 +37

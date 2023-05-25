@@ -98,7 +98,7 @@ L/E: L2, L3, L4, L5, L6, L7, L8, L9, L10, E10, E4, E2
   Se agrega la clave 90 a su direccion base (direccion 2) y se produce 
   overflow porque hay una clave intrusa en esa direccion.
   En la direccion 10 se encuentra espacio/registro disponible y se mueve 
-  la clave 23 (clave intrusa) actualizando su enlace de referencia.
+  la clave 23 (clave intrusa) actualizando cadena de enlaces.
 
 --------------------------------------------------------------------------------------------------
 +23, +56, +90, +61, -49, -67
@@ -125,7 +125,7 @@ L/E: L6, L7, L8, L9, L10, L0, E0, E8, E6
   Se agrega la clave 61 a su direccion base (direccion 6) y se produce 
   overflow porque hay una clave intrusa en esa direccion.
   En la direccion 0 se encuentra espacio/registro disponible y se mueve 
-  la clave 60 (clave intrusa) actualizando su enlace de referencia.
+  la clave 60 (clave intrusa) actualizando cadena de enlaces.
 
 --------------------------------------------------------------------------------------------------
 +23, +56, +90, +61, -49, -67

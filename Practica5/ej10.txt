@@ -1,0 +1,205 @@
+10. Dado el archivo dispersado a continuación, grafique los estados sucesivos para las
+siguientes operaciones: +81, +69, +27, +51, +56, -45, -49.
+Técnica de resolución de colisiones: Saturación progresiva encadenada.
+
+f(x) = x MOD 11
+(clave intrusa) = (nro)*
+--------------------------------------------------------------------------------------------------
+archivo original:
+Direcc Enlace Clave
+    0: (-1)   ()
+    1: (3)    (45)
+    2: (-1)   (13)
+    3: (-1)   (89)*
+    4: (-1)   ()
+    5: (-1)   (49)
+    6: (-1)   ()
+    7: (-1)   ()
+    8: (-1)   (74)
+    9: (-1)   ()
+   10: (-1)   ()
+--------------------------------------------------------------------------------------------------
++81, +69, +27, +51, +56, -45, -49.
++81
+f(81) = 81 MOD 11 = 4
+cuenta para sacar el MOD: 81/11 = 7.3636 --> (7.3636 - 7) * 11 = 4
+
+Direcc Enlace Clave
+    0: (-1)   ()
+    1: (3)    (45)
+    2: (-1)   (13)
+    3: (-1)   (89)*
+    4: (-1)   (81)
+    5: (-1)   (49)
+    6: (-1)   ()
+    7: (-1)   ()
+    8: (-1)   (74)
+    9: (-1)   ()
+   10: (-1)   ()
+
+L/E: L4, E4
+
+- Se agrega la clave 81 en la direccion 4, no hay overflow.
+--------------------------------------------------------------------------------------------------
++81, +69, +27, +51, +56, -45, -49.
++69
+f(69) = 69 MOD 11 = 3
+cuenta para sacar el MOD: 69/11 = 6.27 --> (6.27 - 6) * 11 = 3
+
+Direcc Enlace Clave
+    0: (-1)   ()
+    1: (6)    (45)
+    2: (-1)   (13)
+    3: (-1)   (69)
+    4: (-1)   (81)
+    5: (-1)   (49)
+    6: (-1)   (89)*
+    7: (-1)   ()
+    8: (-1)   (74)
+    9: (-1)   ()
+   10: (-1)   ()
+
+L/E: L3, L4, L5, L6, E6, E1, E3
+
+- tecnica de resolucion: saturacion progresiva encadenada.
+  Se agrega la clave 69 a su direccion base (direccion 3) y se produce 
+  overflow porque hay una clave intrusa en esa direccion.
+  En la direccion 6 se encuentra espacio/registro disponible y se mueve 
+  la clave 89 (clave intrusa) actualizando cadena de enlaces.
+--------------------------------------------------------------------------------------------------
++81, +69, +27, +51, +56, -45, -49.
++27
+f(27) = 27 MOD 11 = 5
+cuenta para sacar el MOD: 27/11 =  --> ( - ) * 11 = 5
+
+Direcc Enlace Clave
+    0: (-1)   ()
+    1: (6)    (45)
+    2: (-1)   (13)
+    3: (-1)   (69)
+    4: (-1)   (81)
+    5: (7)    (49)
+    6: (-1)   (89)*
+    7: (-1)   (27)*
+    8: (-1)   (74)
+    9: (-1)   ()
+   10: (-1)   ()
+
+L/E: L4, E4
+
+- Se intenta agregar la clave 27 en la direccion 5 pero se produce overflow, 
+  como la tecnica de resolucion es saturacion progresiva encadenada
+  se busca la proxima direccion con espacio disponible.
+  En la direccion 7 se encuentra espacio/registro disponible y se agrega 
+  la clave 27 (clave intrusa) actualizando la cadena de enlaces.
+--------------------------------------------------------------------------------------------------
++81, +69, +27, +51, +56, -45, -49.
++51
+f(51) = 51 MOD 11 = 7
+cuenta para sacar el MOD: 51/11 =  --> ( - ) * 11 = 7
+
+Direcc Enlace Clave
+    0: (-1)   ()
+    1: (6)    (45)
+    2: (-1)   (13)
+    3: (-1)   (69)
+    4: (-1)   (81)
+    5: (9)    (49)
+    6: (-1)   (89)*
+    7: (-1)   (51)
+    8: (-1)   (74)
+    9: (-1)   (27)*
+   10: (-1)   ()
+
+L/E: L7, L8, L9, E9, E5, E7
+
+- tecnica de resolucion: saturacion progresiva encadenada.
+  Se agrega la clave 51 a su direccion base (direccion 7) y se produce 
+  overflow porque hay una clave intrusa en esa direccion.
+  En la direccion 9 se encuentra espacio/registro disponible y se mueve 
+  la clave 27 (clave intrusa) actualizando cadena de enlaces.
+--------------------------------------------------------------------------------------------------
++81, +69, +27, +51, +56, -45, -49.
++56
+f(56) = 56 MOD 11 = 1
+cuenta para sacar el MOD: 51/11 =  --> ( - ) * 11 = 1
+
+Direcc Enlace Clave
+    0: (-1)   ()
+    1: (10)   (45)
+    2: (-1)   (13)
+    3: (-1)   (69)
+    4: (-1)   (81)
+    5: (9)    (49)
+    6: (-1)   (89)*
+    7: (-1)   (51)
+    8: (-1)   (74)
+    9: (-1)   (27)*
+   10: (6)    (56)*
+
+L/E: L1, L2, L3, L4, L5, L6, L7, L8, L9, L10, E10, E1
+
+- Se intenta agregar la clave 56 en la direccion 1 pero se produce overflow, 
+  como la tecnica de resolucion es saturacion progresiva encadenada
+  se busca la proxima direccion con espacio disponible.
+  En la direccion 10 se encuentra espacio/registro disponible y se agrega 
+  la clave 56 (clave intrusa) actualizando la cadena de enlaces.
+--------------------------------------------------------------------------------------------------
++81, +69, +27, +51, +56, -45, -49.
+-45
+f(45) = 45 MOD 11 = 1
+cuenta para sacar el MOD: 45/11 =  --> ( - ) * 11 = 1
+
+Direcc Enlace Clave
+    0: (-1)   ()
+    1: (6)    (56)
+    2: (-1)   (13)
+    3: (-1)   (69)
+    4: (-1)   (81)
+    5: (9)    (49)
+    6: (-1)   (89)*
+    7: (-1)   (51)
+    8: (-1)   (74)
+    9: (-1)   (27)*
+   10: (-1)   ()
+
+L/E: L1, L10, E10, E1
+
+- tecnica de resolucion: saturacion progresiva encadenada.
+  Se baja/elimina la clave 45 que se encuentra en su direccion base 1 
+  (calve inicial de la cadena de enlaces) actualizando la cadena de enlaces. 
+  
+  (se actualiza el contenido de la direccion 1 con el contenido del siguiente
+  elemento enlazado de la cadena, liberando su direccion (direccion 10)).
+--------------------------------------------------------------------------------------------------
++81, +69, +27, +51, +56, -45, -49.
+-49
+f(49) = 49 MOD 11 = 5
+cuenta para sacar el MOD: 49/11 =  --> ( - ) * 11 = 5
+
+Direcc Enlace Clave
+    0: (-1)   ()
+    1: (6)    (56)
+    2: (-1)   (13)
+    3: (-1)   (69)
+    4: (-1)   (81)
+    5: (-1)   (27)
+    6: (-1)   (89)*
+    7: (-1)   (51)
+    8: (-1)   (74)
+    9: (-1)   ()
+   10: (-1)   ()
+
+L/E: L5, L9, E9, E5
+
+- tecnica de resolucion: saturacion progresiva encadenada.
+  Se baja/elimina la clave 49 que se encuentra en su direccion base 5 
+  (calve inicial de la cadena de enlaces) actualizando la cadena de enlaces. 
+  
+  (se actualiza el contenido de la direccion 5 con el contenido del siguiente
+  elemento enlazado de la cadena, liberando su direccion (direccion 9)).
+--------------------------------------------------------------------------------------------------
+
+cant claves / cant registros TOTAL = DE * 100 = %DE  
+8 / (11) = 0.7272
+DE = 0.7272 * 100 = 72,72%
