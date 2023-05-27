@@ -1,0 +1,239 @@
+Dado el archivo dispersado a continuación, grafique los estados sucesivos para las
+siguientes operaciones: +45, +48, +23, +21, +59, -44, -45.
+
+Técnica de resolución de colisiones: Saturación progresiva encadenada con área de
+desborde por separado.
+
+f(x) = x MOD 11
+(clave intrusa) = (nro)*
+--------------------------------------------------------------------------------------------------
+archivo original:
+Direcc Enlace Clave
+    0: (-1)   (44)
+    1: (-1)   (56)
+    2: (-1)   ()
+    3: (-1)   ()
+    4: (-1)   (37)
+    5: (-1)   ()
+    6: (-1)   ()
+    7: (-1)   (29)
+    8: (-1)   ()
+    9: (-1)   (31)
+   10: (-1)   ()
+
+    0: (-1)   ()
+    1: (-1)   ()
+    2: (-1)   ()
+    3: (-1)   ()
+
+--------------------------------------------------------------------------------------------------
++45, +48, +23, +21, +59, -44, -45.
++45
+f(45) = 45 MOD 11 = 1 
+cuenta para sacar el MOD: 45/11 =  --> ( - ) * 11 = 1
+
+Direcc Enlace Clave
+    0: (-1)   (44)
+    1: (0)    (56)
+    2: (-1)   ()
+    3: (-1)   ()
+    4: (-1)   (37)
+    5: (-1)   ()
+    6: (-1)   ()
+    7: (-1)   (29)
+    8: (-1)   ()
+    9: (-1)   (31)
+   10: (-1)   ()
+
+    0: (-1)   (45)
+    1: (-1)   ()
+    2: (-1)   ()
+    3: (-1)   ()
+
+L/E: L1, L0ad, E0ad, E1
+
+- Se intenta agregar la clave 45 en la direccion 1 y se produce overflow. 
+  En la direccion 0 DEL AREA SEPARADA DE DESBORDE se encuentra
+  espacio/registro disponible y se agrega la clave 45
+  actualizando la cadena de enlaces: enlace de direcc 1 del area principal 
+  pasa a ser 0.
+--------------------------------------------------------------------------------------------------
++45, +48, +23, +21, +59, -44, -45.
++48
+f(48) = 48 MOD 11 = 4 
+cuenta para sacar el MOD: 48/11 =  --> ( - ) * 11 = 4
+
+Direcc Enlace Clave
+    0: (-1)   (44)
+    1: (0)    (56)
+    2: (-1)   ()
+    3: (-1)   ()
+    4: (1)    (37)
+    5: (-1)   ()
+    6: (-1)   ()
+    7: (-1)   (29)
+    8: (-1)   ()
+    9: (-1)   (31)
+   10: (-1)   ()
+
+    0: (-1)   (45)
+    1: (-1)   (48)
+    2: (-1)   ()
+    3: (-1)   ()
+
+L/E: L4, L0ad, L1ad, E1ad, E4
+
+- Se intenta agregar la clave 48 en la direccion 4 y se produce overflow. 
+  En la direccion 1 DEL AREA SEPARADA DE DESBORDE se encuentra
+  espacio/registro disponible y se agrega la clave 48 
+  actualizando la cadena de enlaces: enlace de direcc 4 del area principal
+  pasa a ser 1.
+--------------------------------------------------------------------------------------------------
++45, +48, +23, +21, +59, -44, -45.
++23
+f(23) = 23 MOD 11 = 1 
+cuenta para sacar el MOD: 23/11 =  --> ( - ) * 11 = 1
+
+Direcc Enlace Clave
+    0: (-1)   (44)
+    1: (2)    (56)
+    2: (-1)   ()
+    3: (-1)   ()
+    4: (1)    (37)
+    5: (-1)   ()
+    6: (-1)   ()
+    7: (-1)   (29)
+    8: (-1)   ()
+    9: (-1)   (31)
+   10: (-1)   ()
+
+    0: (-1)   (45)
+    1: (-1)   (48)
+    2: (0)    (23)
+    3: (-1)   ()
+
+L/E: L1, L0ad, L1ad, L2ad, E2ad, E1
+
+- Se intenta agregar la clave 23 en la direccion 1 y se produce overflow. 
+  En la direccion 2 DEL AREA SEPARADA DE DESBORDE se encuentra
+  espacio/registro disponible y se agrega la clave 23 
+  actualizando la cadena de enlaces: enlace de direcc 1 del area principal
+  pasa a ser 0 y enlace de la direcc 2 del area separada pasa a ser 0.
+--------------------------------------------------------------------------------------------------
++45, +48, +23, +21, +59, -44, -45.
++21
+f(48) = 21 MOD 11 = 10 
+cuenta para sacar el MOD: 21/11 =  --> ( - ) * 11 = 10
+
+Direcc Enlace Clave
+    0: (-1)   (44)
+    1: (2)    (56)
+    2: (-1)   ()
+    3: (-1)   ()
+    4: (1)    (37)
+    5: (-1)   ()
+    6: (-1)   ()
+    7: (-1)   (29)
+    8: (-1)   ()
+    9: (-1)   (31)
+   10: (-1)   (21)
+
+    0: (-1)   (45)
+    1: (-1)   (48)
+    2: (0)    (23)
+    3: (-1)   ()
+
+L/E: L10, E10
+
+- Se agrega la clave 18 en la direccion 7, no hay overflow.
+--------------------------------------------------------------------------------------------------
++45, +48, +23, +21, +59, -44, -45.
++59
+f(48) = 59 MOD 11 = 4
+cuenta para sacar el MOD: 59/11 =  --> ( - ) * 11 = 4
+
+Direcc Enlace Clave
+    0: (-1)   (44)
+    1: (2)    (56)
+    2: (-1)   ()
+    3: (-1)   ()
+    4: (3)    (37)
+    5: (-1)   ()
+    6: (-1)   ()
+    7: (-1)   (29)
+    8: (-1)   ()
+    9: (-1)   (31)
+   10: (-1)   (21)
+
+    0: (-1)   (45)
+    1: (-1)   (48)
+    2: (0)    (23)
+    3: (1)    (59)
+
+L/E: L4, L1ad, L2ad, L3ad, E3ad, E4
+
+- Se intenta agregar la clave 59 en la direccion 4 y se produce overflow. 
+  En la direccion 3 DEL AREA SEPARADA DE DESBORDE se encuentra
+  espacio/registro disponible y se agrega la clave 59 
+  actualizando la cadena de enlaces: enlace de direcc 4 del area principal
+  pasa a ser 3 y enlace de la direcc 3 del area separada pasa a ser 1.
+--------------------------------------------------------------------------------------------------
++45, +48, +23, +21, +59, -44, -45.
+-44
+f(44) = 44 MOD 11 = 0 
+cuenta para sacar el MOD: 44/11 =  --> ( - ) * 11 = 1
+
+Direcc Enlace Clave
+    0: (-1)   ()
+    1: (2)    (56)
+    2: (-1)   ()
+    3: (-1)   ()
+    4: (3)    (37)
+    5: (-1)   ()
+    6: (-1)   ()
+    7: (-1)   (29)
+    8: (-1)   ()
+    9: (-1)   (31)
+   10: (-1)   (21)
+
+    0: (-1)   (45)
+    1: (-1)   (48)
+    2: (0)    (23)
+    3: (1)    (59)
+
+L/E: L0, E0
+
+- Se baja/elimina la clave 44 en la direccion 0.
+--------------------------------------------------------------------------------------------------
++45, +48, +23, +21, +59, -44, -45.
+-45
+f(45) = 45 MOD 11 = 1 
+cuenta para sacar el MOD: 45/11 =  --> ( - ) * 11 = 1
+
+Direcc Enlace Clave
+    0: (-1)   ()
+    1: (2)    (56)
+    2: (-1)   ()
+    3: (-1)   ()
+    4: (3)    (37)
+    5: (-1)   ()
+    6: (-1)   ()
+    7: (-1)   (29)
+    8: (-1)   ()
+    9: (-1)   (31)
+   10: (-1)   (21)
+
+    0: (-1)   ()
+    1: (-1)   (48)
+    2: (-1)   (23)
+    3: (1)    (59)
+
+L/E: L1, L2ad, L0ad, E0ad, E2ad
+
+- Se baja/elimina la clave 56 en la direccion 0 del area de desborde actualizando 
+  la cadena de enlaces: enlace de la direcc 0 del area separada pasa a ser -1.
+--------------------------------------------------------------------------------------------------
+
+cant claves / cant registros TOTAL = DE * 100 = %DE  
+8 / ((11)+4) = 0.53
+DE = 0.53 * 100 = 53%
