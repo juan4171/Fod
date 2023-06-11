@@ -11,7 +11,7 @@ ii. Listar en pantalla los empleados de a uno por línea.
 iii. Listar en pantalla empleados mayores de 70 años, próximos a jubilarse.
 NOTA: El nombre del archivo a crear o utilizar debe ser proporcionado por el usuario
 
-WARNING: nombre de archivo a crear y abrir: archemple
+WARNING: nombre de archivo a crear y abrir: ej4empleados
 
 ej4: Agregar al menú del programa del ejercicio 3, opciones para:
 a. Añadir uno o más empleados al final del archivo con sus datos ingresados por
@@ -35,7 +35,7 @@ type
         nombre: string[20];
         nro_emp: integer;
         edad: integer;
-        dni: string[8]
+        dni: string[8]   {conviene usar string8 y no integer como use en el ej3}
     End;
     archivoEmpleados = file of empleado;
 

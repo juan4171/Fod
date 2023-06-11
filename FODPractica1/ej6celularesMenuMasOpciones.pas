@@ -20,7 +20,7 @@ marca, en la segunda el stock disponible, stock mínimo y la descripción y en la 
 nombre en ese orden. Cada celular se carga leyendo tres líneas del archivo
 “celulares.txt”
 
-WARNING: nombre de archivo a crear y abrir: archcelulares
+WARNING: nombre de archivo a crear y abrir: ej6celus
 
 }
 const
@@ -46,8 +46,6 @@ begin
     with cel do
         writeln('- Codigo de cel: ',codigo,' / marca y modelo: ',marca,' ',nombre,' / descripcion: ',descripcion,
         ' / precio: ',precio:0:2,' / Stock Disponible: ',stock_disp,' / Stock Minimo: ',stock_min);
-        {WARNING: los strings (menos el ultimo del registro) como tienen un espacio antes hay que manejarlos con cuidado
-        WARNING DEL WARNING: con el procedure EliminarPrimerosEspacios solucione ese problema}
 end;
 
 procedure mostrarListaCompleta(var celulares: archivoCelulares);    {WARNING: esto no lo pide el ejercicio}
@@ -98,31 +96,20 @@ begin
 end;
 
 {opcion 1: crear archivo}
-procedure EliminarPrimerosEspacios(var C: string);
-{uso este procedure recursivo para eliminar el primer
-espacio que aparece cuando leo un string desde un archivo .txt}
-begin
-    if C[1] = ' ' then
-    begin
-        delete(C,1,1);
-        EliminarPrimerosEspacios(C);
-    end;
-end;
 procedure cargarCelulares(var celulares : archivoCelulares);
 var
     carga :text;
     cel:celular;
+    espacio:char;  {se usa para sacar el espacio que hay antes de los strings}
 begin
     assign( carga, DIRECCELULARESTXT );
     reset(carga);
     while (not EOF(carga) ) do
     begin
-        readln(carga, cel.codigo, cel.precio, cel.marca);
-        readln(carga, cel.stock_disp, cel.stock_min, cel.descripcion);
+        readln(carga, cel.codigo, cel.precio, espacio, cel.marca);
+        readln(carga, cel.stock_disp, cel.stock_min, espacio, cel.descripcion);
         readln(carga, cel.nombre);
-        EliminarPrimerosEspacios(cel.marca);
-        EliminarPrimerosEspacios(cel.descripcion);
-        {write(cel.marca); write(cel.descripcion); write(cel.nombre);write('-');}  {WARNING: imprimo para ver como salen los strings}
+        {write(cel.marca); write(cel.descripcion); write(cel.nombre); }  {WARNING: imprimo para ver como salen los strings}
         write(celulares , cel);
     end;
     close(carga);
@@ -157,8 +144,6 @@ begin
             writeln( arch_texto, codigo,' ',precio:0:2,' ',marca);
             writeln( arch_texto, stock_disp,' ',stock_min,' ',descripcion);
             writeln( arch_texto, nombre);
-            {WARNING: los strings (menos el ultimo del registro) como tienen un espacio antes hay que manejarlos con cuidado
-            WARNING DEL WARNING: con el procedure EliminarPrimerosEspacios solucione ese problema}
         end;
     end;
     close(celulares);
@@ -186,8 +171,6 @@ begin
                 writeln( arch_texto, codigo,' ',precio:0:2,' ',marca);
                 writeln( arch_texto, stock_disp,' ',stock_min,' ',descripcion);
                 writeln( arch_texto, nombre);
-                {WARNING: los strings (menos el ultimo del registro) como tienen un espacio antes hay que manejarlos con cuidado
-                WARNING DEL WARNING: con el procedure EliminarPrimerosEspacios solucione ese problema}
             end;
         end;
     end;

@@ -1,5 +1,5 @@
 program ej3empleadosMenu;
-{ej3: Realizar un programa que presente un menú con opciones para:
+{ej3. Realizar un programa que presente un menú con opciones para:
 a. Crear un archivo de registros no ordenados de empleados y completarlo con
 datos ingresados desde teclado. De cada empleado se registra: número de
 empleado, apellido, nombre, edad y DNI. Algunos empleados se ingresan con
@@ -9,9 +9,9 @@ i. Listar en pantalla los datos de empleados que tengan un nombre o apellido
 determinado.
 ii. Listar en pantalla los empleados de a uno por línea.
 iii. Listar en pantalla empleados mayores de 70 años, próximos a jubilarse.
-NOTA: El nombre del archivo a crear o utilizar debe ser proporcionado por el usuario
+NOTA: El nombre del archivo a crear o utilizar debe ser proporcionado por el usuario.
 
-nombre de archivo a crear y abrir: archemple
+nombre de archivo a crear y abrir: ej3empleados
 }
 const
     DIREC = 'C:\Users\juan8\Desktop\FOD2023\FODPractica1\archivosFOD\';
@@ -45,7 +45,7 @@ end;
 
 procedure crearArchivo(var arc_logico : archivoEmpleados);
 var
-    arc_fisico: string[12]; {utilizada para obtener el nombre físico del archivo desde teclado}
+    arc_fisico: string[12]; {utilizada para obtener el nombre fï¿½sico del archivo desde teclado}
     emp:empleado;
 begin
     write( 'Ingrese el nombre del archivo: ' );

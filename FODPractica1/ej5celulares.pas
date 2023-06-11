@@ -20,7 +20,7 @@ marca, en la segunda el stock disponible, stock mínimo y la descripción y en la 
 nombre en ese orden. Cada celular se carga leyendo tres líneas del archivo
 “celulares.txt”
 
-WARNING: nombre de archivo a crear y abrir: archcelulares
+WARNING: nombre de archivo a crear y abrir: ej5celus
 
 }
 const
@@ -30,9 +30,9 @@ const
 type
     celular = record
         codigo: integer;
-        nombre: string[12];
+        nombre: string[20];
         descripcion: string[20];
-        marca: string[12];
+        marca: string[20];
         precio: double;
         stock_min: integer;
         stock_disp: integer;
@@ -42,9 +42,8 @@ type
 procedure imprimirCelular(cel : celular);
 begin
     with cel do
-        writeln('- Codigo de cel: ',codigo,' / marca y modelo:',marca,' ',nombre,' / descripcion:',descripcion,
+        writeln('- Codigo de cel: ',codigo,' / marca y modelo: ',marca,' ',nombre,' / descripcion: ',descripcion,
         ' / precio: ',precio:0:2,' / Stock Disponible: ',stock_disp,' / Stock Minimo: ',stock_min);
-        {WARNING: los strings (menos el ultimo del registro) como tienen un espacio antes hay que manejarlos con cuidado}
 end;
 
 procedure mostrarListaCompleta(var celulares: archivoCelulares);    {WARNING: esto no lo pide el ejercicio}
@@ -120,13 +119,14 @@ procedure cargarCelulares(var celulares : archivoCelulares);
 var
     carga :text;
     cel:celular;
+    espacio:char;  {se usa para sacar el espacio que hay antes de los strings}
 begin
     assign( carga, DIRECCELULARESTXT );
     reset(carga);
     while (not EOF(carga) ) do
     begin
-        readln(carga, cel.codigo, cel.precio, cel.marca);
-        readln(carga, cel.stock_disp, cel.stock_min, cel.descripcion);
+        readln(carga, cel.codigo, cel.precio, espacio, cel.marca);
+        readln(carga, cel.stock_disp, cel.stock_min, espacio, cel.descripcion);
         readln(carga, cel.nombre);
         {write(cel.marca); write(cel.descripcion); write(cel.nombre); }  {WARNING: imprimo para ver como salen los strings}
         write(celulares , cel);
@@ -136,7 +136,7 @@ end;
 
 procedure crearArchivo(var celulares : archivoCelulares);
 var
-    arc_fisico: string[12]; {utilizada para obtener el nombre físico del archivo desde teclado}
+    arc_fisico: string[20]; {utilizada para obtener el nombre físico del archivo desde teclado}
 begin
     write( 'Ingrese el nombre del archivo: ' );
     readln( arc_fisico );
@@ -160,10 +160,9 @@ begin
         read(celulares, cel);
         with cel do
         begin
-            writeln( arch_texto, codigo,' ',precio:0:2,marca);
-            writeln( arch_texto, stock_disp,' ',stock_min,descripcion);
+            writeln( arch_texto, codigo,' ',precio:0:2,' ',marca);
+            writeln( arch_texto, stock_disp,' ',stock_min,' ',descripcion);
             writeln( arch_texto, nombre);
-            {WARNING: los strings (menos el ultimo del registro) como tienen un espacio antes hay que manejarlos con cuidado}
         end;
     end;
     close(celulares);

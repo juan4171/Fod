@@ -1,0 +1,17 @@
+Consultas resueltas de prac1:
++hay un bug cuando se usa read(arc_fisico) que hace que el siguiente readln() sea ignorado.
+no encontre solucion ni los profes sabian por que pasaba pero, encontre que si usaba solo
+readln() en lugar de read() no pasaba, asique solo uso readln(). igualmente no tiene mucha
+importancia esto porque mas adelante en la materia ya no se leen por teclado los nombres de 
+archivos Y EL PARCIAL DE PASCAL ES EN PAPEL :0
+
++para las variables "dni" conviene usar :string[8] y no :integer porque el integer te puede
+hacer overflow en cambio el string si te pasas de 8 digitos se te corta solo.
+
++los assign conviene ponerlos en el programa principal y a los procedure le mandas por parametros
+los archivos ya asignados. (igual en algun caso especial podes asignar adentro de los procedure
+no pasa na)
+
++al leer strings de una variable guardada en un registro de un archivo, al leerlo "viene"
+con un espacio " " adelante eso se puede sacar metiendo ese espacio a una variable tipo char
+
