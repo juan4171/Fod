@@ -1,0 +1,12 @@
+Consultas resueltas prac2:
++EJ1- donde conviene poner los assing generalmente? dentro de algun proceso o en pprincipal?,
+rta: no importa mucho, si tengo un proceso tipo crear archivo, en el proceso, si no puede ser en el pprincipal.
+
++los enunciados no aclaran si los archivos que tengo que trabajar son de txt o binarios ¿que hago?
+si el enunciado no aclara que trabajes con archivos .txt se entiende que los archivos son binarios.
+los profes te piden que imagines que tenes ya dados los archivos en binario, pero si queres probar el programa
+podes crear archivos .txt (de la forma que quieras, que no te tome mucho), pasarlos a binario y asi trabajar 
+con los binarios.
+
++
+

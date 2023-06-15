@@ -1,14 +1,14 @@
 1 1 la plata
-50 10 60 60 alpha
+50 10 120 120 alpha
 1 2 la plata
-10 10 60 60 delta
+10 10 120 120 delta
 2 1 berisso 
-10 10 60 60 alpha
+10 10 120 120 alpha
 3 2 ensenada
-20 20 120 120 delta 
+20 20 240 240 delta 
 4 2 tolosa
 0 0 0 0 delta
 4 3 tolosa
-20 20 120 120 gamma
+50 20 240 240 gamma
 5 1 los hornos
-20 20 120 120 alpha
+51 20 240 240 alpha

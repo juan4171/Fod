@@ -46,7 +46,6 @@ type
     maestro = file of productos;
     detalle = file of ventas;
 
-
 procedure leer(var archivo: detalle; var dato: ventas);
 begin
     if (not(EOF(archivo))) then 
@@ -54,7 +53,6 @@ begin
     else 
         dato.cod := valoralto;
 end;
-
 
 procedure actualizar(var mae1: maestro; var det1: detalle);
 var
@@ -67,7 +65,7 @@ begin
         read(mae1, regm);
         while (regm.cod <> regd.cod) do
             read (mae1,regm);
-        { se procesan códigos iguales }
+        { se procesan cï¿½digos iguales }
         while (regm.cod = regd.cod) do begin
             regm.stock := regm.stock - regd.vendidos;
             leer(det1,regd);

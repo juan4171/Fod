@@ -1,4 +1,4 @@
-program ej8Votos;
+program ej9Votos;
 {ej9 Se necesita contabilizar los votos de las diferentes mesas electorales registradas por
 provincia y localidad. Para ello, se posee un archivo con la siguiente información: codigo de
 provincia, código de localidad, número de mesa y cantidad de votos en dicha mesa.
@@ -39,24 +39,23 @@ begin
     reset(archivo);
     leer(archivo, reg);
     total_general := 0;
-    while (reg.cod_prov <> VALORALTO) do begin   {sumo el total de provincias}
-        writeln('Codigo de provincia ', reg.cod_prov);
+    while (reg.cod_prov <> VALORALTO) do begin
+        writeln('Provincia ', reg.cod_prov,':');
         cod_prov_aux := reg.cod_prov;
         total_provincia := 0;
-        while (cod_prov_aux = reg.cod_prov) do begin     {sumo el total de localidades}
-            writeln('Codigo de localidad ', reg.cod_loc,' - Total de Votos');
+        while (cod_prov_aux = reg.cod_prov) do begin
             cod_loc_aux := reg.cod_loc;
             total_localidad := 0;
-            while (cod_prov_aux = reg.cod_prov) and (cod_loc_aux = reg.cod_loc) do begin 		{sumo el total del mes}
-                total_localidad := total_localidad + reg.votos;
+            while (cod_prov_aux = reg.cod_prov) and (cod_loc_aux = reg.cod_loc) do begin
+                total_localidad := total_localidad + reg.votos;   {sumo votos de mesas al total de la localidad}
                 leer(archivo, reg);
             end;
-            writeln(cod_loc_aux,' - ',total_localidad);
-            total_provincia := total_provincia + total_localidad;
+            writeln('Localidad ', cod_loc_aux,' - ',total_localidad,' votos');
+            total_provincia := total_provincia + total_localidad;  {sumo votos de localidades al total de la provincia}
         end;
         writeln('Total de Votos Provincia: ', total_provincia);
         writeln();
-        total_general := total_general + total_provincia;
+        total_general := total_general + total_provincia;   {sumo votos de provincias al total general}
     end;
     writeln('Total General de Votos: ', total_general);
     close(archivo);	

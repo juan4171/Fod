@@ -1,4 +1,4 @@
-program ej5RecuentoCovid;
+program ej6RecuentoCovid;
 {ej6- Se desea modelar la información necesaria para un sistema de recuentos de casos de
 covid para el ministerio de salud de la provincia de buenos aires.
 Diariamente se reciben archivos provenientes de los distintos municipios, la información
@@ -70,7 +70,15 @@ begin
     if (not(EOF(archivo))) then 
         read(archivo, dato)
     else 
-        dato.cod := valoralto;
+        dato.cod := VALORALTO;
+end;
+
+procedure leerMaestro (var archivo: maestro; var dato: ministerio);
+begin
+    if (not(EOF(archivo))) then 
+        read(archivo, dato)
+    else 
+        dato.cod := VALORALTO;
 end;
 
 procedure minimo (var reg_det: reg_detalle; var min: municipio; var deta: arc_detalle);
@@ -94,22 +102,17 @@ procedure informar(var mae1: maestro);
 var
     reg_actual, reg_aux: ministerio;
     total: integer;
-    quedan_localidades: boolean;
 begin
     writeln('Lista de localidades con mas de 50 casos activos: ');
-    quedan_localidades:=true;
     reset(mae1);
-    while (not(eof(mae1))) do
+    leerMaestro(mae1, reg_actual);
+    while (reg_actual.cod <> VALORALTO) do
     begin
         total:=0;
-        read(mae1, reg_actual);
         reg_aux:= reg_actual;
-        while (reg_actual.cod = reg_aux.cod) and (quedan_localidades) do begin
-            total:= total+reg_actual.casos_activos;
-            if (not(eof(mae1))) then
-                read(mae1, reg_actual)
-            else
-                quedan_localidades:= false;
+        while (reg_actual.cod = reg_aux.cod) do begin
+            total:= total + reg_actual.casos_activos;
+            leerMaestro(mae1, reg_actual);
         end;
         if (total > 50) then
             writeln('la localidad: ',reg_aux.cod,' nombre: ', reg_aux.nom_localidad,' tiene mas de 50 casos activos.');
@@ -137,9 +140,10 @@ begin
     while (min.cod <> VALORALTO) do
     begin
         read(mae1,regm);
-        while ((regm.cod <> min.cod ) or (min.cepa <> regm.cepa)) do  {se tienen que cumplir las 2 condiciones para salir, si solo se cumple una sigo buscando}
+        while ((regm.cod <> min.cod ) or (min.cepa <> regm.cepa)) do
             read(mae1,regm);
-        {while ((regm.cod = min.cod ) and/or (min.cepa = regm.cepa)) do begin }
+        {re mindfuck este while pero basicamente se tienen que cumplir las 2 condiciones para salir,
+        osea si el codigo y la cepa son iguales salgo del while}
         {las localidad no se repiten y no tengo cepas repetidad en una misma localidad}
         {no va un if porque SI O SI voy a encontrar un registro maestro para el registro del detalle}
         regm.casos_activos := min.casos_activos;

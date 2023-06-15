@@ -14,7 +14,6 @@ compras.
 
 }
 const
-
     VALORALTO = 9999;
     {WARNING: para ejecutar este programa en otra pc cambiar estas direcciones}
     {direccion de donde se van a cargar y guardar los archivos}
@@ -33,7 +32,6 @@ type
     end;
     maestro = file of venta;
 
-
 procedure leer(var archivo: maestro; var dato: venta);
 begin
     if (not(EOF(archivo))) then 
@@ -41,7 +39,6 @@ begin
     else 
         dato.cod := valoralto;
 end;
-
 
 procedure reporte(var archivo: maestro);
 var
@@ -52,38 +49,36 @@ begin
     reset(archivo);
     leer(archivo, reg);
     empresa_total := 0;
-    while (reg.cod <> VALORALTO) do begin   {sumo el total de clientes}
+    while (reg.cod <> VALORALTO) do begin
         writeln('REPORTE de cliente: ', reg.nom, ' codigo: ' , reg.cod);
         cod_aux := reg.cod;
         cliente_total := 0;
-        while (cod_aux = reg.cod) do begin     {sumo el total de meses}
+        while (cod_aux = reg.cod) do begin
             writeln('ano: ', reg.ano);
             ano_aux := reg.ano;
             cliente_anual := 0;
-            while (cod_aux = reg.cod) and (ano_aux = reg.ano) do begin 		{sumo el total del mes}    
+            while (cod_aux = reg.cod) and (ano_aux = reg.ano) do begin
                 writeln('mes: ', reg.mes);
                 mes_aux := reg.mes;
                 cliente_mensual := 0;
-                while (cod_aux = reg.cod) and (ano_aux = reg.ano) and (mes_aux = reg.mes) do begin 		{sumo el total del mes}
-                    cliente_mensual := cliente_mensual + reg.monto;
+                while (cod_aux = reg.cod) and (ano_aux = reg.ano) and (mes_aux = reg.mes) do begin
+                    cliente_mensual := cliente_mensual + reg.monto;   {sumo monto de dias al total del mes}
                     leer(archivo, reg);
                 end;
                 writeln('monto por compras en mes ', mes_aux ,': ', cliente_mensual:0:2 );
-                cliente_anual := cliente_anual + cliente_mensual;
+                cliente_anual := cliente_anual + cliente_mensual;     {sumo monto de meses al total del ano}
             end;
             writeln('monto por compras en ano ', ano_aux ,': ', cliente_anual:0:2 );
-            cliente_total := cliente_total + cliente_anual;
+            cliente_total := cliente_total + cliente_anual;   {sumo monto de anos al total del cliente}
         end;       
         writeln('monto TOTAL de compras: ', cliente_total:0:2 );       
-        empresa_total := empresa_total + cliente_total;
+        empresa_total := empresa_total + cliente_total;  {sumo monto de clientes al total de la empresa}
         writeln('----');
     end;
     writeln('Monto TOTAL ingresado a Empresa: ', empresa_total:0:2);
     close(archivo);	
     writeln('Reporte Finalizado.')
 end;
-
-
 
 procedure maestro_txt_a_binario(var carga: text; var mae: maestro);
 var
