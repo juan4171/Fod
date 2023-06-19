@@ -1,0 +1,48 @@
+1 la plata
+1 los hornos
+1 italiano
+10 18/6/23
+1 la plata
+1 los hornos
+2 frances
+10 18/6/23
+1 la plata
+1 los hornos
+3 espanol
+10 18/6/23
+1 la plata
+2 olmos
+1 italiano
+10 18/6/23
+1 la plata
+2 olmos
+2 frances
+10 18/6/23
+1 la plata
+2 olmos
+3 espanol
+10 18/6/23
+2 buenos aires
+1 quilmes
+1 italiano
+10 18/6/23
+2 buenos aires
+1 quilmes
+2 frances
+20 18/6/23
+2 buenos aires
+1 quilmes
+3 espanol
+10 18/6/23
+2 buenos aires
+2 avellaneda
+1 italiano
+1500 18/6/23
+2 buenos aires
+2 avellaneda
+2 frances
+1500 18/6/23
+2 buenos aires
+2 avellaneda
+3 espanol
+1500 18/6/23
