@@ -1,0 +1,6 @@
+50 50 Buenos aires
+50 50 Catamarca
+10 10 Chaco
+50 50 Chubut
+140 140 Cordoba
+50 50 Corrientes

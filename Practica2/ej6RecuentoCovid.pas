@@ -137,14 +137,14 @@ begin
     end;
     {calculo el reg de menor codigo de entre todos los detalles}
     minimo (reg_det, min, deta);
+    read(mae1,regm);{asumo que el archivo maestro no esta vacio, si lo esta crashea. uso este read para inicializar el regm pero podria usar regm:='asd' o un if eof}
     while (min.cod <> VALORALTO) do
     begin
-        read(mae1,regm);
         while ((regm.cod <> min.cod ) or (min.cepa <> regm.cepa)) do
             read(mae1,regm);
         {re mindfuck este while pero basicamente se tienen que cumplir las 2 condiciones para salir,
         osea si el codigo y la cepa son iguales salgo del while}
-        {las localidad no se repiten y no tengo cepas repetidad en una misma localidad}
+        {las localidades pueden tener 1 o mas cepas}
         {no va un if porque SI O SI voy a encontrar un registro maestro para el registro del detalle}
         regm.casos_activos := min.casos_activos;
         regm.casos_nuevos := min.casos_nuevos;

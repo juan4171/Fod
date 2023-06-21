@@ -1,0 +1,6 @@
+1 10 10 Chubut
+1 10 10 Cordoba
+2 10 10 Cordoba
+3 10 10 Cordoba
+4 10 10 Cordoba
+1 10 10 Corrientes
