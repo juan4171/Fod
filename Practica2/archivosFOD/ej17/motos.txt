@@ -1,0 +1,16 @@
+1 47 moto-1
+cilindrada 110
+wave
+honda
+2 50 moto-2
+cilindrada 150
+xr
+yamaha
+3 48 moto-3
+cilindrada 150
+tornado
+honda
+4 46 moto-4
+cilindrada 150
+sapucai
+zanella
