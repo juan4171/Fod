@@ -1,16 +1,16 @@
 program ej6Ropa;
 {ej6. Una cadena de tiendas de indumentaria posee un archivo maestro no ordenado
-con la información correspondiente a las prendas que se encuentran a la venta. De
-cada prenda se registra: cod_prenda, descripción, colores, tipo_prenda, stock y
+con la informaciï¿½n correspondiente a las prendas que se encuentran a la venta. De
+cada prenda se registra: cod_prenda, descripciï¿½n, colores, tipo_prenda, stock y
 precio_unitario. Ante un eventual cambio de temporada, se deben actualizar las prendas
 a la venta. Para ello reciben un archivo conteniendo: cod_prenda de las prendas que
-quedarán obsoletas. Deberá implementar un procedimiento que reciba ambos archivos
-y realice la baja lógica de las prendas, para ello deberá modificar el stock de la prenda
+quedarï¿½n obsoletas. Deberï¿½ implementar un procedimiento que reciba ambos archivos
+y realice la baja lï¿½gica de las prendas, para ello deberï¿½ modificar el stock de la prenda
 correspondiente a valor negativo.
-Por último, una vez finalizadas las bajas lógicas, deberá efectivizar las mismas
-compactando el archivo. Para ello se deberá utilizar una estructura auxiliar, renombrando
+Por ï¿½ltimo, una vez finalizadas las bajas lï¿½gicas, deberï¿½ efectivizar las mismas
+compactando el archivo. Para ello se deberï¿½ utilizar una estructura auxiliar, renombrando
 el archivo original al finalizar el proceso.. Solo deben quedar en el archivo las prendas
-que no fueron borradas, una vez realizadas todas las bajas físicas.
+que no fueron borradas, una vez realizadas todas las bajas fï¿½sicas.
 
 * hay algunos metodos que no pide el ej pero yo los uso para generar los archivos
 binarios necesarios, creandolos desde archivos .txt con el objetivo de poder probar el program
@@ -90,6 +90,11 @@ begin
     end;
     close(mae1);
     close(mae_aux);
+    {no se me ocurrio otra forma de renombrar el archivo mas que
+    borrar el original y renombrar aux con la diraccion/nombre del original
+    se me ocurrio tambien usar mae1:= mae_aux; pero eso es solo hacer
+    que mae1 apunte a la direccion de mae_aux, no es copiar el contenido de
+    mae_aux a mae1.}
     erase(mae1);
     rename(mae_aux, MAESTRO_BINARIO);
     writeln('Compactacion (baja fisica) del archivo ', MAESTRO_BINARIO ,' finalizada.')

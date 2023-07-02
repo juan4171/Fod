@@ -135,6 +135,10 @@ begin
     agregarFlor(arc_logico, 'flor 5', 5);
     eliminarFlor(arc_logico, flor_a_eliminar1);
     eliminarFlor(arc_logico, flor_a_eliminar2);
+    agregarFlor(arc_logico, 'flor 6', 6);
+    agregarFlor(arc_logico, 'flor 7', 7);
+    agregarFlor(arc_logico, 'flor 8', 8);
+    agregarFlor(arc_logico, 'flor 9', 9);
     exportar_a_txt(arc_logico, listado_txt);
 
     writeln('----');

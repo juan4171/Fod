@@ -1,3 +1,7 @@
 Codigo: 1 Nombre: flor 1
+Codigo: 7 Nombre: flor 7
 Codigo: 3 Nombre: flor 3
+Codigo: 6 Nombre: flor 6
 Codigo: 5 Nombre: flor 5
+Codigo: 8 Nombre: flor 8
+Codigo: 9 Nombre: flor 9

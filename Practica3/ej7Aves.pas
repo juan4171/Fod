@@ -86,8 +86,8 @@ begin
         if (reg.cod < 0) then
         begin
             if (filepos(archivo)-1 = filesize(archivo)-1) then {si estoy en el unico o el ultimo registro}
-            begin
-                seek(archivo, filesize(archivo)-1 );
+            begin                                              {no es necesario este if porque con lo que hago en el else funciona igual}
+                seek(archivo, filesize(archivo)-1 );  {pero supongo que en el caso de ser el ultimo registro es "mejor" hacer solo estas 2 cosas}
                 truncate(archivo);    
             end
             else 
@@ -99,7 +99,7 @@ begin
                 write(archivo, ultimo);                 {copio el ultimo en la pos a sobre escribir}
                 seek(archivo, filesize(archivo)-1 );    {trunco el ultimo}
                 truncate(archivo);                      {trunco el ultimo}
-                seek(archivo,pos_de_reemplazo);            {vuelo a la pos a sobre escrita por si sobre escribi algo a borrar}
+                seek(archivo,pos_de_reemplazo);          {vuelo a la pos a sobre escrita por si sobre escribi algo a borrar}
             end;            
             writeln('Se borro ave y el archivo quedo con ',filesize(archivo),' posiciones');
         end;
