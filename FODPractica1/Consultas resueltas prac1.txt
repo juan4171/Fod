@@ -13,5 +13,7 @@ los archivos ya asignados. (igual en algun caso especial podes asignar adentro d
 no pasa na)
 
 +al leer strings de una variable guardada en un registro de un archivo, al leerlo "viene"
-con un espacio " " adelante eso se puede sacar metiendo ese espacio a una variable tipo char
+con un espacio " " adelante eso se puede sacar metiendo ese espacio a una variable tipo char.
+en este repo hay una imagen que se llama "Leer strings de un archivo sin espacio adelante"
+que lo explica
 
