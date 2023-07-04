@@ -72,6 +72,7 @@ begin
         seek (mae1, 0);   {necesario para volver a buscar desde el principio}
     end;
     writeln('Fin de marcado de aves para borrar.');
+    close(mae1);
 end;
 
 procedure borrarAves(var archivo : maestro);    {podria llamarse compactar o baja fisica}
