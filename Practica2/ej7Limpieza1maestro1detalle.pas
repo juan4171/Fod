@@ -1,18 +1,18 @@
 program ej7Limpieza1maestro1detalle;
 {ej7- El encargado de ventas de un negocio de productos de limpieza desea administrar el
 stock de los productos que vende. Para ello, genera un archivo maestro donde figuran todos
-los productos que comercializa. De cada producto se maneja la siguiente información:
-código de producto, nombre comercial, precio de venta, stock actual y stock mínimo.
+los productos que comercializa. De cada producto se maneja la siguiente informaciï¿½n:
+cï¿½digo de producto, nombre comercial, precio de venta, stock actual y stock mï¿½nimo.
 Diariamente se genera un archivo detalle donde se registran todas las ventas de productos
-realizadas. De cada venta se registran: código de producto y cantidad de unidades vendidas.
+realizadas. De cada venta se registran: cï¿½digo de producto y cantidad de unidades vendidas.
 Se pide realizar un programa con opciones para:
 a. Actualizar el archivo maestro con el archivo detalle, sabiendo que:
-? Ambos archivos están ordenados por código de producto.
-? Cada registro del maestro puede ser actualizado por 0, 1 ó más registros del
+? Ambos archivos estï¿½n ordenados por cï¿½digo de producto.
+? Cada registro del maestro puede ser actualizado por 0, 1 ï¿½ mï¿½s registros del
 archivo detalle.
-? El archivo detalle sólo contiene registros que están en el archivo maestro.
-b. Listar en un archivo de texto llamado “stock_minimo.txt” aquellos productos cuyo
-stock actual esté por debajo del stock mínimo permitido.
+? El archivo detalle sï¿½lo contiene registros que estï¿½n en el archivo maestro.
+b. Listar en un archivo de texto llamado ï¿½stock_minimo.txtï¿½ aquellos productos cuyo
+stock actual estï¿½ por debajo del stock mï¿½nimo permitido.
 
 WARNING: resto los productos vendidos al stock, no compruebo si no hay mas
 WARNING: uso el archivo "productos original.txt" para restablecer el archivo "productos.txt"
@@ -59,7 +59,7 @@ var
     regd: ventas;
     regm: productos;
 begin
-    reset (mae1); reset (det1);
+    reset(mae1); reset(det1);
     leer(det1 , regd); {se procesan todos los registros del archivo det1}
     while (regd.cod <> valoralto) do begin
         read(mae1, regm);
@@ -74,7 +74,8 @@ begin
         seek (mae1, filepos(mae1)-1);
         write(mae1,regm);
     end;
-    writeln('Actualizacion finalizada.')
+    writeln('Actualizacion finalizada.');
+    close(mae1); close(det1);
 end;
 
 procedure exportar_a_txt(var arch_binario : maestro; var arch_texto: text);
