@@ -1,0 +1,10 @@
+Consultas resueltas de prac5:
++se puede usar calculadora en examen para mod o DE??
+rta de ayudante: si.
+
++importa el orden de L/E?
+rta de ayudante: siempre primero L y después E, no importa tanto el orden porque tengo igualmente guardados los datos.
+
++es necesario marcar con color rojo las claves intrusas y enlaces?
+rta de ayudante: no tanto, con ponerles un asterisco o subrayarlos listo.
+

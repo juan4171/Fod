@@ -1,0 +1,12 @@
+Consultas resueltas de prac4:
+(EJs 1,2,3,4: los hice pero no estoy seguro de que las respuestas esten bien)
+
++el examen practico son solo ejercicios o puede tener preguntas teoricas?
+rta de ayudante: solo ejs.
+
++cuando se fusionan 2 nodos (uno en underflow y uno hermano), cual se libera?
+rta de ayudante: siempre el de la derecha por convencion. 
+Cuando libero nodos guardo esos nodos en una pila LIFO para ser reutilizados OSEA cuando se crea un nuevo nodo reutilizo alguno que haya liberado.
+
++cuando se libera NODO 1 debo marcar E1 EN L/E?
+rta de ayudante: NO, desaprobado si lo haces.
