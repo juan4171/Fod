@@ -1,7 +1,6 @@
 # Fod-unlp-2023
+Repositorio donde subo trabajos prácticos de la materia: Fundamentos de organización de datos FOD 2023.
 <p>
-    Repositorio donde subo trabajos prácticos de la materia: Fundamentos de organización de datos FOD 2023.
-
     Links de otros repositorios que me ayudaron a aprobar la materia:
     Resumen fod: 
     https://github.com/Fabian-Martinez-Rincon/FOD/blob/main/Parciales/Otros/ResumenFinalFOD.pdf
